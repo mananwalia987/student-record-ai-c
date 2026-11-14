@@ -1,5 +1,5 @@
 // ============================================================================
-// PART 3: CGPA Calculation and Sorting Functions
+// PART 4: AI Academic Advisor (Complete Full Code)
 // Project: Student Record and Result Management System
 // Name: Manan Walia | SAP ID: 590036141 | Course: PRC1001 (UPES)
 // ============================================================================
@@ -43,7 +43,6 @@ int searchIndex(long long sapID) {
     return -1;
 }
 
-// Function to calculate CGPA by averaging non-zero SGPAs
 float calculateCGPA(struct Student st) {
     float sum = 0.0;
     int count = 0;
@@ -139,7 +138,6 @@ void searchStudent() {
     }
 }
 
-// 3. Display student CGPA
 void displayCGPA() {
     long long id;
     printf("\nEnter SAP ID: ");
@@ -155,7 +153,6 @@ void displayCGPA() {
     }
 }
 
-// 4. Calculate average CGPA of students in each year
 void averageCGPAByYear() {
     printf("\n=== Average CGPA by Year ===\n");
     for (int yr = 1; yr <= 4; yr++) {
@@ -207,7 +204,6 @@ void deleteStudent() {
     }
 }
 
-// 7. Sort by SAP ID using Selection Sort
 void sortBySAPID() {
     printf("\n=== Students Sorted by SAP ID (Selection Sort) ===\n");
     if (n == 0) {
@@ -231,7 +227,6 @@ void sortBySAPID() {
     for (int i = 0; i < n; i++) printStudent(temp[i]);
 }
 
-// 8. Sort by Name using Bubble Sort
 void sortByName() {
     printf("\n=== Students Sorted by Name (Bubble Sort) ===\n");
     if (n == 0) {
@@ -253,13 +248,102 @@ void sortByName() {
     for (int i = 0; i < n; i++) printStudent(temp[i]);
 }
 
+// Part B - Simple AI-Assisted Academic Advisor
+void printAdvice(float cgpa) {
+    printf("\nCGPA: %.2f\n", cgpa);
+
+    if (cgpa >= 9.0) {
+        printf("Performance Category : Excellent Performance\n");
+        printf("Recommendation       : Excellent performance! Maintain your current study routine and look for internships/projects.\n");
+    } else if (cgpa >= 7.5) {
+        printf("Performance Category : Good Performance\n");
+        printf("Recommendation       : Good performance! Work a bit harder in subjects where SGPA was lower to cross 9.0.\n");
+    } else if (cgpa >= 6.0) {
+        printf("Performance Category : Needs Improvement\n");
+        printf("Recommendation       : Needs improvement. Make a regular study timetable and take help from teachers in tough subjects.\n");
+    } else {
+        printf("Performance Category : Requires Immediate Attention\n");
+        printf("Recommendation       : Requires immediate attention. Meet your faculty mentor and start studying daily to clear backlogs.\n");
+    }
+    printf("----------------------------------------\n");
+}
+
+void academicAdvisor() {
+    printf("\n=== AI-Assisted Academic Advisor ===\n");
+    if (n == 0) {
+        printf("No records available.\n");
+        return;
+    }
+
+    printf("1. Check advice for one student\n");
+    printf("2. Check advice for all students\n");
+    printf("Enter choice: ");
+    int choice;
+    scanf("%d", &choice);
+    clearBuffer();
+
+    if (choice == 1) {
+        long long id;
+        printf("Enter SAP ID: ");
+        scanf("%lld", &id);
+        clearBuffer();
+
+        int idx = searchIndex(id);
+        if (idx == -1) {
+            printf("Student not found!\n");
+        } else {
+            printf("\nStudent: %s (SAP ID: %lld)\n", s[idx].name, s[idx].sapID);
+            float cgpa = calculateCGPA(s[idx]);
+            printAdvice(cgpa);
+        }
+    } else if (choice == 2) {
+        for (int i = 0; i < n; i++) {
+            printf("\nStudent: %s (SAP ID: %lld)\n", s[i].name, s[i].sapID);
+            float cgpa = calculateCGPA(s[i]);
+            printAdvice(cgpa);
+        }
+    } else {
+        printf("Invalid choice!\n");
+    }
+}
+
+void loadSampleData() {
+    s[0].sapID = 59001001; strcpy(s[0].rollNo, "R1001"); strcpy(s[0].name, "Aarav Sharma");
+    strcpy(s[0].phone, "9876543210"); strcpy(s[0].email, "aarav@stu.upes.ac.in");
+    s[0].year = 2; s[0].semester = 4;
+    s[0].sgpa[0] = 9.2f; s[0].sgpa[1] = 9.5f; s[0].sgpa[2] = 9.1f; s[0].sgpa[3] = 9.4f;
+
+    s[1].sapID = 59001002; strcpy(s[1].rollNo, "R1002"); strcpy(s[1].name, "Priya Verma");
+    strcpy(s[1].phone, "9123456780"); strcpy(s[1].email, "priya@stu.upes.ac.in");
+    s[1].year = 1; s[1].semester = 2;
+    s[1].sgpa[0] = 7.8f; s[1].sgpa[1] = 8.0f;
+
+    s[2].sapID = 59001003; strcpy(s[2].rollNo, "R1003"); strcpy(s[2].name, "Rahul Gupta");
+    strcpy(s[2].phone, "9811223344"); strcpy(s[2].email, "rahul@stu.upes.ac.in");
+    s[2].year = 3; s[2].semester = 5;
+    s[2].sgpa[0] = 6.5f; s[2].sgpa[1] = 6.0f; s[2].sgpa[2] = 6.8f; s[2].sgpa[3] = 6.2f; s[2].sgpa[4] = 6.4f;
+
+    s[3].sapID = 59001004; strcpy(s[3].rollNo, "R1004"); strcpy(s[3].name, "Meera Patel");
+    strcpy(s[3].phone, "9001122334"); strcpy(s[3].email, "meera@stu.upes.ac.in");
+    s[3].year = 1; s[3].semester = 1;
+    s[3].sgpa[0] = 5.3f;
+
+    s[4].sapID = 59001005; strcpy(s[4].rollNo, "R1005"); strcpy(s[4].name, "Karan Singh");
+    strcpy(s[4].phone, "9988776655"); strcpy(s[4].email, "karan@stu.upes.ac.in");
+    s[4].year = 4; s[4].semester = 7;
+    s[4].sgpa[0] = 7.5f; s[4].sgpa[1] = 8.1f; s[4].sgpa[2] = 7.9f; s[4].sgpa[3] = 8.3f; s[4].sgpa[4] = 7.7f; s[4].sgpa[5] = 8.0f; s[4].sgpa[6] = 7.6f;
+
+    n = 5;
+    printf("\n5 sample records loaded successfully!\n");
+}
+
 int main() {
     int choice;
 
     do {
         printf("\n========================================\n");
         printf(" STUDENT RECORD AND RESULT SYSTEM (C)   \n");
-        printf(" UPES - PRC1001 Assignment (Part 3)     \n");
+        printf(" UPES - PRC1001 Assignment              \n");
         printf("========================================\n");
         printf("1.  Add Student Details\n");
         printf("2.  Search Student Record\n");
@@ -269,7 +353,8 @@ int main() {
         printf("6.  Delete Student Record\n");
         printf("7.  Sort by SAP ID (Selection Sort)\n");
         printf("8.  Sort by Name (Bubble Sort)\n");
-        printf("9.  AI Academic Advisor (Coming in Part 4)\n");
+        printf("9.  AI Academic Advisor\n");
+        printf("10. Load 5 Sample Records\n");
         printf("0.  Exit\n");
         printf("========================================\n");
         printf("Enter your choice: ");
@@ -285,14 +370,17 @@ int main() {
             case 6: deleteStudent(); break;
             case 7: sortBySAPID(); break;
             case 8: sortByName(); break;
+            case 9: academicAdvisor(); break;
+            case 10: loadSampleData(); break;
             case 0: printf("\nExiting program...\n"); break;
-            default: printf("\nFeature coming in Part 4.\n");
+            default: printf("\nInvalid choice! Please choose 0 to 10.\n");
         }
 
         if (choice != 0) {
             printf("\nPress Enter to continue...");
             getchar();
         }
+
     } while (choice != 0);
 
     return 0;
