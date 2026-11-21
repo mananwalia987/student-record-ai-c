@@ -1,0 +1,160 @@
+﻿
+=== STUDENT RECORD SYSTEM ===
+1. Add Student
+2. Search Student
+3. Display Student CGPA
+4. Average CGPA by Year
+5. Display All Students
+6. Delete Student
+7. Sort by SAP ID
+8. Sort by Name
+9. AI Academic Advisor
+0. Exit
+Enter choice: 
+Total Students: 5
+
+-----------------------------------
+SAP ID   : 59001001
+Roll No  : R101
+Name     : Aarav Sharma
+Phone    : 9876543210
+Email    : aarav@stu.upes.ac.in
+Year     : 2
+Semester : 4
+SGPA     : S1:9.20 S2:9.50 S3:9.10 S4:9.40 S5:- S6:- S7:- S8:- 
+CGPA     : 9.30
+-----------------------------------
+
+-----------------------------------
+SAP ID   : 59001002
+Roll No  : R102
+Name     : Priya Verma
+Phone    : 9123456780
+Email    : priya@stu.upes.ac.in
+Year     : 1
+Semester : 2
+SGPA     : S1:7.80 S2:8.00 S3:- S4:- S5:- S6:- S7:- S8:- 
+CGPA     : 7.90
+-----------------------------------
+
+-----------------------------------
+SAP ID   : 59001003
+Roll No  : R103
+Name     : Rahul Gupta
+Phone    : 9811223344
+Email    : rahul@stu.upes.ac.in
+Year     : 3
+Semester : 5
+SGPA     : S1:6.50 S2:6.00 S3:6.80 S4:6.20 S5:6.40 S6:- S7:- S8:- 
+CGPA     : 6.38
+-----------------------------------
+
+-----------------------------------
+SAP ID   : 59001004
+Roll No  : R104
+Name     : Meera Patel
+Phone    : 9001122334
+Email    : meera@stu.upes.ac.in
+Year     : 1
+Semester : 1
+SGPA     : S1:5.30 S2:- S3:- S4:- S5:- S6:- S7:- S8:- 
+CGPA     : 5.30
+-----------------------------------
+
+-----------------------------------
+SAP ID   : 59001005
+Roll No  : R105
+Name     : Karan Singh
+Phone    : 9988776655
+Email    : karan@stu.upes.ac.in
+Year     : 4
+Semester : 7
+SGPA     : S1:7.50 S2:8.10 S3:7.90 S4:8.30 S5:7.70 S6:8.00 S7:7.60 S8:- 
+CGPA     : 7.87
+-----------------------------------
+
+=== STUDENT RECORD SYSTEM ===
+1. Add Student
+2. Search Student
+3. Display Student CGPA
+4. Average CGPA by Year
+5. Display All Students
+6. Delete Student
+7. Sort by SAP ID
+8. Sort by Name
+9. AI Academic Advisor
+0. Exit
+Enter choice: 
+Enter SAP ID for Academic Advice: 
+Student : Aarav Sharma
+CGPA    : 9.30
+Status  : Excellent Performance
+Advice  : Maintain your current study pattern and try projects/internships.
+
+=== STUDENT RECORD SYSTEM ===
+1. Add Student
+2. Search Student
+3. Display Student CGPA
+4. Average CGPA by Year
+5. Display All Students
+6. Delete Student
+7. Sort by SAP ID
+8. Sort by Name
+9. AI Academic Advisor
+0. Exit
+Enter choice: 
+Enter SAP ID for Academic Advice: 
+Student : Priya Verma
+CGPA    : 7.90
+Status  : Good Performance
+Advice  : Good work! Focus on subjects with lower SGPA to reach 9.0+.
+
+=== STUDENT RECORD SYSTEM ===
+1. Add Student
+2. Search Student
+3. Display Student CGPA
+4. Average CGPA by Year
+5. Display All Students
+6. Delete Student
+7. Sort by SAP ID
+8. Sort by Name
+9. AI Academic Advisor
+0. Exit
+Enter choice: 
+Enter SAP ID for Academic Advice: 
+Student : Rahul Gupta
+CGPA    : 6.38
+Status  : Needs Improvement
+Advice  : Make a daily study timetable and clear doubts with faculty.
+
+=== STUDENT RECORD SYSTEM ===
+1. Add Student
+2. Search Student
+3. Display Student CGPA
+4. Average CGPA by Year
+5. Display All Students
+6. Delete Student
+7. Sort by SAP ID
+8. Sort by Name
+9. AI Academic Advisor
+0. Exit
+Enter choice: 
+Enter SAP ID for Academic Advice: 
+Student : Meera Patel
+CGPA    : 5.30
+Status  : Requires Immediate Attention
+Advice  : Meet your mentor soon and study daily to avoid backlogs.
+
+=== STUDENT RECORD SYSTEM ===
+1. Add Student
+2. Search Student
+3. Display Student CGPA
+4. Average CGPA by Year
+5. Display All Students
+6. Delete Student
+7. Sort by SAP ID
+8. Sort by Name
+9. AI Academic Advisor
+0. Exit
+Enter choice: 
+Goodbye!
