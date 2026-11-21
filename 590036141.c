@@ -1,5 +1,5 @@
 // ============================================================================
-// PART 2: Student Record Functions
+// PART 3: CGPA Calculation and Sorting Functions
 // Project: Student Record and Result Management System
 // Name: Manan Walia | SAP ID: 590036141 | Course: PRC1001 (UPES)
 // ============================================================================
@@ -36,7 +36,6 @@ void removeNewline(char str[]) {
     }
 }
 
-// Search student by SAP ID, returns index or -1
 int searchIndex(long long sapID) {
     for (int i = 0; i < n; i++) {
         if (s[i].sapID == sapID) return i;
@@ -44,7 +43,20 @@ int searchIndex(long long sapID) {
     return -1;
 }
 
-// Print single student record
+// Function to calculate CGPA by averaging non-zero SGPAs
+float calculateCGPA(struct Student st) {
+    float sum = 0.0;
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+        if (st.sgpa[i] > 0.0) {
+            sum = sum + st.sgpa[i];
+            count++;
+        }
+    }
+    if (count > 0) return sum / count;
+    return 0.0;
+}
+
 void printStudent(struct Student st) {
     printf("\n----------------------------------------\n");
     printf("SAP ID   : %lld\n", st.sapID);
@@ -59,19 +71,17 @@ void printStudent(struct Student st) {
         if (st.sgpa[i] > 0.0) printf("Sem%d: %.2f ", i + 1, st.sgpa[i]);
         else printf("Sem%d: - ", i + 1);
     }
-    printf("\n----------------------------------------\n");
+    printf("\nCGPA     : %.2f\n", calculateCGPA(st));
+    printf("----------------------------------------\n");
 }
 
-// 1. Add student details
 void addStudent() {
     if (n >= MAX) {
         printf("\nStudent list is full!\n");
         return;
     }
-
     struct Student temp;
     printf("\n=== Enter Student Details ===\n");
-
     printf("Enter SAP ID: ");
     scanf("%lld", &temp.sapID);
     clearBuffer();
@@ -80,7 +90,6 @@ void addStudent() {
         printf("Student with this SAP ID already exists!\n");
         return;
     }
-
     printf("Enter Roll No: ");
     fgets(temp.rollNo, sizeof(temp.rollNo), stdin);
     removeNewline(temp.rollNo);
@@ -111,13 +120,11 @@ void addStudent() {
         scanf("%f", &temp.sgpa[i]);
         clearBuffer();
     }
-
     s[n] = temp;
     n++;
     printf("\nStudent record added successfully!\n");
 }
 
-// 2. Search and display student record
 void searchStudent() {
     long long id;
     printf("\nEnter SAP ID to search: ");
@@ -132,7 +139,39 @@ void searchStudent() {
     }
 }
 
-// 5. Display all student records
+// 3. Display student CGPA
+void displayCGPA() {
+    long long id;
+    printf("\nEnter SAP ID: ");
+    scanf("%lld", &id);
+    clearBuffer();
+
+    int idx = searchIndex(id);
+    if (idx == -1) printf("Student not found!\n");
+    else {
+        printf("\nStudent: %s\n", s[idx].name);
+        printf("SAP ID : %lld\n", s[idx].sapID);
+        printf("CGPA   : %.2f\n", calculateCGPA(s[idx]));
+    }
+}
+
+// 4. Calculate average CGPA of students in each year
+void averageCGPAByYear() {
+    printf("\n=== Average CGPA by Year ===\n");
+    for (int yr = 1; yr <= 4; yr++) {
+        float sum = 0.0;
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (s[i].year == yr) {
+                sum = sum + calculateCGPA(s[i]);
+                count++;
+            }
+        }
+        if (count > 0) printf("Year %d: Average CGPA = %.2f (%d students)\n", yr, sum / count, count);
+        else printf("Year %d: No records\n", yr);
+    }
+}
+
 void displayAll() {
     printf("\n=== All Student Records ===\n");
     if (n == 0) {
@@ -143,7 +182,6 @@ void displayAll() {
     for (int i = 0; i < n; i++) printStudent(s[i]);
 }
 
-// 6. Delete student record
 void deleteStudent() {
     long long id;
     printf("\nEnter SAP ID to delete: ");
@@ -155,7 +193,6 @@ void deleteStudent() {
         printf("Student not found!\n");
         return;
     }
-
     printf("Are you sure you want to delete %s? (y/n): ", s[idx].name);
     char confirm;
     scanf("%c", &confirm);
@@ -170,22 +207,68 @@ void deleteStudent() {
     }
 }
 
+// 7. Sort by SAP ID using Selection Sort
+void sortBySAPID() {
+    printf("\n=== Students Sorted by SAP ID (Selection Sort) ===\n");
+    if (n == 0) {
+        printf("No records to sort.\n");
+        return;
+    }
+    struct Student temp[MAX];
+    for (int i = 0; i < n; i++) temp[i] = s[i];
+
+    for (int i = 0; i < n - 1; i++) {
+        int min_idx = i;
+        for (int j = i + 1; j < n; j++) {
+            if (temp[j].sapID < temp[min_idx].sapID) min_idx = j;
+        }
+        if (min_idx != i) {
+            struct Student swap = temp[i];
+            temp[i] = temp[min_idx];
+            temp[min_idx] = swap;
+        }
+    }
+    for (int i = 0; i < n; i++) printStudent(temp[i]);
+}
+
+// 8. Sort by Name using Bubble Sort
+void sortByName() {
+    printf("\n=== Students Sorted by Name (Bubble Sort) ===\n");
+    if (n == 0) {
+        printf("No records to sort.\n");
+        return;
+    }
+    struct Student temp[MAX];
+    for (int i = 0; i < n; i++) temp[i] = s[i];
+
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (strcmp(temp[j].name, temp[j + 1].name) > 0) {
+                struct Student swap = temp[j];
+                temp[j] = temp[j + 1];
+                temp[j + 1] = swap;
+            }
+        }
+    }
+    for (int i = 0; i < n; i++) printStudent(temp[i]);
+}
+
 int main() {
     int choice;
 
     do {
         printf("\n========================================\n");
         printf(" STUDENT RECORD AND RESULT SYSTEM (C)   \n");
-        printf(" UPES - PRC1001 Assignment (Part 2)     \n");
+        printf(" UPES - PRC1001 Assignment (Part 3)     \n");
         printf("========================================\n");
         printf("1.  Add Student Details\n");
         printf("2.  Search Student Record\n");
-        printf("3.  Display Student CGPA (Coming in Part 3)\n");
-        printf("4.  Display Average CGPA by Year (Coming in Part 3)\n");
+        printf("3.  Display Student CGPA\n");
+        printf("4.  Display Average CGPA by Year\n");
         printf("5.  Display All Students\n");
         printf("6.  Delete Student Record\n");
-        printf("7.  Sort by SAP ID (Coming in Part 3)\n");
-        printf("8.  Sort by Name (Coming in Part 3)\n");
+        printf("7.  Sort by SAP ID (Selection Sort)\n");
+        printf("8.  Sort by Name (Bubble Sort)\n");
         printf("9.  AI Academic Advisor (Coming in Part 4)\n");
         printf("0.  Exit\n");
         printf("========================================\n");
@@ -196,10 +279,14 @@ int main() {
         switch (choice) {
             case 1: addStudent(); break;
             case 2: searchStudent(); break;
+            case 3: displayCGPA(); break;
+            case 4: averageCGPAByYear(); break;
             case 5: displayAll(); break;
             case 6: deleteStudent(); break;
+            case 7: sortBySAPID(); break;
+            case 8: sortByName(); break;
             case 0: printf("\nExiting program...\n"); break;
-            default: printf("\nFeature coming in next part.\n");
+            default: printf("\nFeature coming in Part 4.\n");
         }
 
         if (choice != 0) {
